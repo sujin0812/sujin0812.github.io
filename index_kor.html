@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link href="http://fonts.googleapis.com/earlyaccess/jejugothic.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand:700" rel="stylesheet">
+
+<head>
+  <meta charset="utf-8">
+
+  <head>
+    <meta charset="utf-8">
+    <style media="screen">
+      * {
+        background-color: transparent;
+      }
+
+      *:focus {
+        outline: 0 !important;
+      }
+
+      body {
+        overflow-y: hidden;
+        line-height: normal;
+      }
+
+      html {
+        overflow-y: hidden;
+      }
+
+      #tagtikPage * {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+      }
+
+      #tagtikPage .ui-header .ui-btn {
+        background: none;
+        border: none;
+      }
+
+      #tagtikPage .ui-header .ui-btn-inner {
+        border: none;
+      }
+
+      #tagtikPage {
+
+        overflow-y: hidden;
+        background-color: RGB(249, 249, 249);
+      }
+
+      #navbar {
+        background-color: RGB(249, 249, 249);
+        height: 22%;
+        padding-top: 3%;
+        border: none;
+        transition: transform .25s ease-out, box-shadow .25s ease-out, -webkit-transform .25s ease-out;
+      }
+
+      #sidebarPanel {
+        width: 60%;
+        background-color: RGB(221, 221, 221);
+        box-shadow: 0 0.8125rem 30px rgba(0, 0, 0, .55);
+
+        transition: transform .25s ease-out, box-shadow .25s ease-out, -webkit-transform .25s ease-out;
+      }
+
+      #sidebarDeleteIcon {
+        margin-top: 5%;
+        margin-right: 5%;
+        padding: 0;
+        border: none;
+        float: right;
+        box-shadow: 0px 0px 0px;
+      }
+
+      #sidebarIcon {
+        margin-top: 2%;
+        margin-right: 2%;
+        padding: 0;
+        float: right;
+        border: none;
+        box-shadow: 0px 0px 0px;
+      }
+
+      .sidebarIconContainer {
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .sidebarDeleteIconContainer {
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      .bar1,
+      .bar2,
+      .bar3 {
+        width: 70px;
+        height: 6px;
+        background-color: #333;
+        margin: 12px 0;
+        transition: 0.4s;
+      }
+
+      /* Rotate first bar */
+
+      .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-18px, 15px);
+        transform: rotate(-45deg) translate(-18px, 15px);
+      }
+
+      /* Fade out the second bar */
+
+      .change .bar2 {
+        opacity: 0;
+      }
+
+      /* Rotate last bar */
+
+      .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-8px, -8px);
+        transform: rotate(45deg) translate(-8px, -8px);
+      }
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+
+      * {}
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      div {
+        height: 100%;
+      }
+
+      .navbarLogoContainer {
+        text-align: center;
+        vertical-align: middle;
+        height: 100%;
+      }
+
+      .navbarLogo {
+        padding: 10% 0 5% 0;
+        height: 80%;
+        width: auto;
+      }
+
+      .navbarRestaurantName {
+        font-family: 'Jeju Gothic', serif;
+        height: 20%;
+      }
+
+      dl {
+        font-family: serif;
+        padding: 1em;
+      }
+
+      dt {
+        font-size: 2em;
+        font-weight: bold;
+      }
+
+      dt span {
+        font-size: .5em;
+        color: #777;
+        margin-left: .5em;
+      }
+
+      dd {
+        font-size: 1.25em;
+        margin: 1em 0 0;
+        padding-bottom: 1em;
+      }
+
+      .back-btn {
+        float: right;
+        margin: 0 2em 1em 0;
+      }
+
+      .ui-content {
+        overflow-y: hidden;
+        height: 78%;
+      }
+
+      form,
+      table {
+        padding: 0;
+        height: 65%;
+      }
+
+      form {
+        margin-top: 0%;
+      }
+
+      td {
+        background-color: transparent;
+      }
+
+
+
+      tr:nth-of-type(2) td {
+        border-top: rgba(195, 195, 195, 0.11) 4px solid;
+      }
+
+      table {
+        border-collapse: separate;
+        border-spacing: 1em;
+        width: 100%;
+        margin: 0;
+      }
+
+      .btns {
+        border: none;
+        border-radius: 4px;
+        white-space: nowrap;
+        width: 100%;
+        display: inline-block;
+        zoom: 1;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        transition: border .25s linear, color .25s linear, background-color .25s linear;
+        background-color: RGB(248, 248, 248);
+        border-left: 3px solid RGB(243, 243, 243);
+        border-top: 3px solid RGB(243, 243, 243);
+        -webkit-box-shadow: 0 5px 5px RGB(224, 224, 224);
+        box-shadow: 0 5px 5px RGB(224, 224, 224);
+      }
+
+      .btns:hover {}
+
+      .btns:active {
+        background-color: RGB(240, 240, 240);
+        top: 5px;
+        outline: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .btns::after {
+        top: 0px;
+        border: none;
+        border-radius: 4px;
+        white-space: nowrap;
+        width: 100%;
+        display: inline-block;
+        zoom: 1;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        -webkit-transition: border .25s linear, color .25s linear, background-color .25s linear;
+        transition: border .25s linear, color .25s linear, background-color .25s linear;
+        background-color: RGB(248, 248, 248);
+        border-left: 3px solid RGB(243, 243, 243);
+        border-top: 3px solid RGB(243, 243, 243);
+        -webkit-box-shadow: 0 5px 5px RGB(224, 224, 224);
+        box-shadow: 0 5px 5px RGB(224, 224, 224);
+      }
+
+      .btnBill {
+        margin: 0;
+      }
+
+      .btns:hover {}
+
+      .btnCall {
+        margin: 10% auto 0 auto;
+      }
+
+      .btnMenu {
+        margin: 10% auto 0 auto;
+      }
+
+      .btnBill {
+        padding: 0;
+      }
+
+      .btnBill:hover {}
+
+      .btnImg {
+        padding-top: 5%;
+        padding-bottom: 5%;
+        width: 85%;
+      }
+
+      .billBtnImg {
+        padding-top: 0;
+        padding-bottom: 0;
+        padding: auto;
+        width: 40%;
+      }
+
+      input {
+        vertical-align: center;
+      }
+
+      .ui-mobile .ui-page .ui-header {
+        overflow-y: hidden;
+        height: 15%;
+      }
+
+
+      .navbarTopContainer {
+        height: 15%;
+      }
+
+      #title {
+        font-size: 100px;
+      }
+
+      #sidebarPanel {
+        font-family: 'Jeju Gothic', serif;
+        background-image: none;
+        height: 100%;
+        background-color: RGB(249, 249, 249);
+      }
+
+      #sidebarPanel a {
+        display: block;
+
+      }
+
+      .sidebarLinkBtn {
+        height: 10%;
+        text-decoration: none;
+        color: RGB(10, 10, 10);
+        font-size: 3em;
+        padding: 10% 10%;
+      }
+
+      .sidebarLinkBtnHoverEvent:hover {
+        text-decoration: none;
+        color: RGB(217, 3, 3);
+        transition: 0.5s;
+        background-color: RGB(235, 235, 235);
+      }
+
+      .sidebarLinkBtnHoverEventTwo:hover {
+        text-decoration: none;
+        color: RGB(217, 3, 3);
+        transition: 0.5s;
+      }
+
+      .sidebarFirstButton {
+        line-height: 90%;
+        font-size: 2.5em;
+        color: black;
+        height: 25%;
+        background-color: RGB(235, 235, 235);
+      }
+
+      .sidebarFirstButton img {
+        padding-top: 20%;
+        padding-bottom: 2%;
+        width: 50%;
+        display: block;
+      }
+
+      .sidebarLinkBtn:nth-child(2n) {}
+
+      .changeThemeBtn {
+
+        width: 50%;
+        float: left;
+      }
+
+      .changeLangBtn {
+
+        width: 50%;
+        float: left;
+      }
+
+      .changeLangBtnSelected {
+
+        margin-top: 1%;
+        width: 50%;
+        float: left;
+      }
+
+      .changeThemeBtnSelect {
+        margin-top: 1%;
+        width: 15%;
+        float: left;
+      }
+
+      .changeThemeBtnSelect:hover {
+        text-decoration: none;
+        color: RGB(217, 3, 3);
+        transition: 0.5s;
+      }
+
+      .changeThemeBtnSelect:first-of-type {}
+
+      #sidebarPanel {}
+
+      .disabled {
+        pointer-events: none;
+      }
+
+      .ui-panel-dismiss {
+        z-index: -1;
+        opacity: 0.2;
+      }
+
+      .ui-panel-inner {
+        padding: 0;
+        background-color: RGB(255);
+        z-index: 20;
+      }
+
+      .tales {
+        width: 100%;
+      }
+
+      .carousel-inner {
+        width: 100%;
+        height: 120%;
+      }
+
+      #carouselIndicators {
+        height: 55%;
+        padding-top: 5%;
+        padding-bottom: 10%;
+        padding: auto;
+
+      }
+
+      .carousel-indicators li {
+        background-color: lightgray;
+      }
+
+      .carousel-indicators .active {
+        background-color: #f00;
+      }
+
+      .carousel-control-prev-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%237F7F7F' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+      }
+
+      .carousel-control-next-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%237F7F7F' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+      }
+
+
+
+      .modalDialog {
+        overflow-y: hidden;
+        width: 95%;
+        height: 90%;
+        margin: 10% auto;
+      }
+
+      .modal-content {
+        font-family: 'Jeju Gothic', serif;
+        height: 100%;
+        border-radius: 1px;
+        border: 0;
+        box-shadow: 20px -6px 20px 14px rgba(0, 0, 0, 0.5);
+      }
+
+      .modalHeader {
+        width: 100%;
+        margin-top: 5%;
+        height: 15%;
+        margin-bottom: : 5%;
+        text-align: center;
+
+      }
+
+      .modalHeader span {
+        display: block;
+        width: 100%;
+        font-size: 2em;
+        color: dimgray;
+      }
+
+      .modalHeader span:first-of-type {
+        margin-top: 10%;
+        font-size: 2.5em;
+        color: black;
+      }
+
+      .modalTitle {
+        margin: 0;
+        padding-top: 5%;
+        font-size: 1.6em;
+      }
+
+      .modalBody {
+        height: 80%;
+        width: 95%;
+        margin: 0 2.5%;
+        display: table;
+      }
+
+      .billOrdered {
+        background-color: rgba(220, 220, 220, 0.2);
+        height: 40%;
+        margin-top: 5%;
+        overflow-y: scroll;
+      }
+
+      .billMenuItem {
+        display: table;
+        width: 95%;
+        height: 7%;
+        margin: 0 2.5%;
+        padding: 2% 5%;
+        border-bottom: 1px solid dimgray;
+      }
+
+      .billMenuItemTitle {
+        background-color: rgba(220, 220, 220, 0.3);
+        border-bottom: 1px solid dimgray;
+        border-top: 1px solid dimgray;
+        color: dimgray;
+        padding: 2% 5%;
+        margin: 0 2.5%;
+        height: 15%;
+      }
+
+      .billTotalTitle {
+        color: dimgray;
+        padding: 1% 5%;
+        height: 4%;
+
+      }
+
+      .billTotalTitle span {
+        width: 10%;
+      }
+
+      .Dollar {
+        font-size: 1.5em;
+      }
+
+      .billTotal .Dollar {
+        font-size: 1.5em;
+        width: 2%;
+        width: auto;
+      }
+
+      .toppingDollar {
+        font-size: 1.5em;
+        color: dimgray;
+        margin-left: 0;
+      }
+
+      .toppingItems {
+        margin: 0;
+        padding: 0;
+        border: 0;
+      }
+
+      .billMain {
+        height: 100%;
+        overflow-y: hidden;
+
+      }
+
+      .billMenuName {
+        text-align: left;
+        display: table-cell;
+        vertical-align: middle;
+        display: inline-block;
+        width: 65%;
+        font-size: 2em;
+      }
+
+      .billMenuQuantity {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        display: inline-block;
+        width: 10%;
+        font-size: 2em;
+      }
+
+      .billMenuPrice {
+        display: table-cell;
+        vertical-align: middle;
+
+        text-align: left;
+        display: inline-block;
+        width: 20%;
+        font-size: 2em;
+      }
+
+
+      .billTotal {
+        background-color: rgba(220, 220, 220, 0.2);
+        color: black;
+        margin-left: 35%;
+        width: 65%;
+        padding-top: 5%;
+        margin-top: 5%;
+        height: 50%;
+      }
+
+      .billTotal span {
+        font-size: 2em;
+        display: inline-block;
+        width: 28%;
+      }
+
+      .billTotalTitle span {
+        font-size: 1.8em;
+        display: inline-block;
+        width: 30%;
+      }
+
+      .billToppingName {
+        text-align: left;
+        display: table-cell;
+        vertical-align: middle;
+        color: dimgray;
+        display: inline-block;
+        margin-left: 5%;
+        width: 60%;
+        font-size: 1.7em;
+      }
+
+      .billToppingQuantity {
+        color: dimgray;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        display: inline-block;
+        width: 10%;
+        font-size: 1.7em;
+        margin-left: 0;
+      }
+
+      .billToppingPrice {
+        display: table-cell;
+        vertical-align: middle;
+        color: dimgray;
+        text-align: left;
+        display: inline-block;
+        width: 20%;
+        font-size: 1.7em;
+      }
+
+      .toppingItems {
+        overflow: hidden;
+        height: auto;
+      }
+
+      .modalCloseBtn {
+        float: right;
+        margin-right: 5%;
+        font-size: 4em;
+        border: none;
+        box-shadow: none;
+        outline: none;
+      }
+
+
+      .langBtn {
+        display: grid;
+      }
+
+      li ul {
+        display: none;
+      }
+    </style>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      function CallServerClicked() {
+        $.ajax({
+          url: "http://ec2-54-193-79-26.us-west-1.compute.amazonaws.com:3000/tagtik_steakhouse/table_1/call_bell"
+        }).then(function(data) {
+          alert("Calling server is done, wait a minute!");
+        });
+      }
+
+      function MenuClicked() {
+        location.href = "http://ec2-54-193-79-26.us-west-1.compute.amazonaws.com:3000/tagtik_steakhouse/table_1/menu_kor";
+      }
+    </script>
+  </head>
+
+  <body>
+    <div data-role="page" id="tagtikPage" data-theme="d" data-url="tagtikPage">
+      <!--navbar-->
+      <div id="navbar" data-fullscreen="true" data-role="header" data-theme="a">
+        <div class="navbarLogoContainer">
+          <img class="navbarLogo" src="https://s3-us-west-1.amazonaws.com/tagtik/tagtikLogo.png" alt="">
+          <div class="navbarRestaurantName">
+            <h1>< 요코하마 아이케이 라멘 ></h1>
+          </div>
+        </div>
+        <a href="#sidebarPanel" id="sidebarIcon" class="ui-btn-right">
+          <div class="sidebarIconContainer">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+        </a>
+      </div>
+      <!-- /panel -->
+      <div data-role="panel" data-swipe-close="false" id="sidebarPanel" data-display="push" data-position="right" data-theme="none">
+        <a class="ui-btn-right" id="sidebarDeleteIcon" data-rel="close">
+          <div class="sidebarDeleteIconContainer change">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+          <a class="sidebarLinkBtn sidebarFirstButton disabled" href="#"><img src="https://s3-us-west-1.amazonaws.com/tagtik/tagtikLogo.png" alt="">요코하마 아이케이 라멘</a>
+          <a class="sidebarLinkBtn sidebarLinkBtnHoverEvent" href="#" onclick="CallServerClicked()">종업원 호출</a>
+          <a class="sidebarLinkBtn sidebarLinkBtnHoverEvent" href="#">계산서</a>
+          <li class="langBtn sidebarLinkBtnHoverEventTwo"><a class="sidebarLinkBtn sidebarLinkBtnHoverEventTwo">언어</a>
+            <ul class="langSelectBtn"><a class="sidebarLinkBtn langSelectBtn sidebarLinkBtnHoverEventTwo" href="http://ec2-54-193-79-26.us-west-1.compute.amazonaws.com:3000/tagtik_steakhouse/table_1">영어</a></ul>
+            <ul class="langSelectBtn"><a class="sidebarLinkBtn langSelectBtn sidebarLinkBtnHoverEventTwo" href="http://ec2-54-193-79-26.us-west-1.compute.amazonaws.com:3000/tagtik_steakhouse/table_1/kor">한국어</a></ul>
+          </li>
+          <a class="sidebarLinkBtn changeThemeBtn disabled" href="#">테마</a>
+          <a class="sidebarLinkBtn brightTheme changeThemeBtnSelect" href="#">
+          <i class="fas fa-sun"></i>
+        </a>
+          <a class="sidebarLinkBtn darkTheme changeThemeBtnSelect" href="#">
+          <i class="fas fa-moon"></i>
+        </a>
+      </div>
+      <!-- /content -->
+      <div class="content" data-role="content">
+        <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="https://s3-us-west-1.amazonaws.com/tagtik/ramen7.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://s3-us-west-1.amazonaws.com/tagtik/ramen2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="https://s3-us-west-1.amazonaws.com/tagtik/ramen3.jpg" alt="Third slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+          <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+        </div>
+        <form>
+          <table>
+            <tr>
+              <td>
+                <div class="ui-input-btn ui-btn btns btnCall" onclick="CallServerClicked()">
+                  <img class="btnImg" src="https://s3-us-west-1.amazonaws.com/tagtik/CallBtnKor.png" alt="">
+                  <input type="button" data-enhanced="true" value="Input value">
+                </div>
+              </td>
+              <td>
+                <div class="ui-input-btn ui-btn btns btnMenu" onclick="MenuClicked()">
+                  <img class="btnImg" src="https://s3-us-west-1.amazonaws.com/tagtik/MenuBtnKor.png" alt="">
+                  <input type="button" data-enhanced="true" value="Input value">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td id="btnBilltd" colspan="2">
+                <button type="button" class="ui-input-btn ui-btn btns btnBill" data-toggle="modal" data-target="#myModal">
+                <img class="billBtnImg btnImg" src="https://s3-us-west-1.amazonaws.com/tagtik/billBtnKor.png" alt="">
+            </button>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modalDialog">
+        <!-- Modal content-->
+        <div class="modal-content center-block">
+          <div class="modalHeader">
+            <button onclick="window.location.reload();" class="modalCloseBtn"><i class="fas fa-times"></i></button>
+            <span class="billTitleRestaurant">요코하마 아이케이 라멘</span>
+            <span class="billTitleAddress">32136 Alvarado Blvd Union City, CA 94587</span>
+            <span class="billTitleTel">(510) 675-7433</span>
+          </div>
+          <div class="modalBody">
+            <div class="billMain">
+              <div id="billList" class="billOrdered">
+                <div class="billMenuItemTitle">
+                  <span class="billMenuName">메뉴</span>
+                  <span class="billMenuQuantity">수량</span>
+                  <span class="billMenuPrice">총 가격</span>
+                </div>
+              </div>
+              <div class="billTotal">
+                <div class="billMenuItem billTotalTitle">
+                  <span class="">총 수량</span>
+                </div>
+                <div class="billMenuItem billTotalContents">
+                  <span class="Dollar">&nbsp;&nbsp;</span>
+                  <span class="billTotalQuantity"></span>
+                </div>
+                <div class="billMenuItem billTotalTitle">
+                  <span class="">중간 총액</span>
+                </div>
+                <div class="billMenuItem billTotalContents">
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billTotalPrice"></span>
+                </div>
+                <div class="billMenuItem billTotalTitle">
+                  <span class="">세금</span>
+                </div>
+                <div class="billMenuItem billTotalContents">
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billTotalTax"></span>
+                </div>
+                <div class="billMenuItem billTotalTitle">
+                  <span style="width: 50%;" class="">내야할 돈</span>
+                </div>
+                <div class="billMenuItem billTotalContents">
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billCheckTotal"></span>
+                </div>
+                <div class="billMenuItem billTotalTitle">
+                  <span class="">팁 8%</span>
+                  <span class="">팁 10%</span>
+                  <span class="">팁 15%</span>
+                </div>
+                <div class="billMenuItem billTotalContents">
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billTotalTip8"></span>
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billTotalTip10"></span>
+                  <span class="Dollar">$&nbsp;</span>
+                  <span class="billTotalTip15"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $('#sidebarIcon').on("click", function() {
+      $(".content").fadeTo("slow", 0.2);
+      $("#navbar").fadeTo("slow", 0.2);
+    });
+    $('#sidebarDeleteIcon').on("click", function() {
+      $(".content").fadeTo("slow", 1);
+      $("#navbar").fadeTo("slow", 1);
+    });
+
+
+
+    $(".darkTheme").on("click", function() {
+      $('#tagtikPage').css("background-color", "dimgray");
+      $('.navbarRestaurantName').css("color", "black").css("text-shadow", "none");
+      $('#navbar').css("background-color", "dimgray");
+      $('#sidebarPanel').css("background-color", "gray");
+      $('tr:first-of-type td:first-of-type').css("border-right", "rgba(5,5,5,0.1) 4px solid");
+      $('tr:nth-of-type(2) td').css("border-top", "rgba(5,5,5,0.05) 4px solid");
+      $('.sidebarFirstButton').css("background-color",
+        "RGB(115,18,18)");
+      $('.btns').css("background-color", "RGB(138,138,138)");
+      $('.btns').css("border", "none");
+      $('.btns').css("box-shadow", "0 5px 5px RGB(110,110,110)");
+      $('.btns').css("-webkit-box-shadow", "0 5px 5px RGB(110,110,110)");
+      $('.bar1').css("background-color", "RGB(162,162,162)");
+      $('.bar2').css("background-color", "RGB(162,162,162)");
+      $('.bar3').css("background-color", "RGB(162,162,162)");
+      $('.fa-sun').css("color", "black");
+      $('.fa-moon').css("color", "RGB(217,3,3)");
+      $('.langBtn').css("color", "black");
+    })
+    $(".brightTheme").on("click", function() {
+      $('#tagtikPage').css("background-color", "RGB(249,249,249)");
+      $('.navbarRestaurantName').css("color", "black").css("text-shadow", "0 1px 0 #eee");
+      $('#navbar').css("background-color", "RGB(249,249,249)");
+      $('#sidebarPanel').css("background-color", "RGB(249,249,249)");
+      $('tr:first-of-type td:first-of-type').css("border-right", "rgba(195,195,195,0.15) 4px solid");
+      $('tr:nth-of-type(2) td').css("border-top", "rgba(195,195,195,0.11) 4px solid");
+      $('.sidebarFirstButton').css("background-color",
+        "RGB(235, 235, 235)");
+      $('.btns').css("background-color", "RGB(248, 248, 248)");
+      $('.btns').css("border-left", "3px solid RGB(243, 243, 243)");
+      $('.btns').css("border-top", "3px solid RGB(243, 243, 243)");
+      $('.btns').css("box-shadow", "0 5px 5px RGB(224, 224, 224)");
+      $('.btns').css("-webkit-box-shadow", "0 5px 5px RGB(224, 224, 224)");
+      $('.bar1').css("background-color", "RGB(0,0,0)");
+      $('.bar2').css("background-color", "RGB(0,0,0)");
+      $('.bar3').css("background-color", "RGB(0,0,0)");
+      $('.fa-sun').css("color", "RGB(217,3,3)");
+      $('.fa-moon').css("color", "black");
+      $('.langBtn').css("color", "black");
+    });
+
+    /*bill calc pt*/
+    var billTmpAmount = 0;
+    var billAmount = 0;
+    var billTmpQtyAmount = 0;
+    var billQtyAmount = 0;
+
+    $(document).ready(function() {
+      $.getJSON('http://ec2-54-193-79-26.us-west-1.compute.amazonaws.com:3000/tagtik_steakhouse/table_1/bill', function(data) {
+        var bill_item = '';
+        var detail_item = '';
+        $.each(data, function(entryIndex, entry) {
+          bill_item += '<div class="billMenuItem billMenuItems">';
+          bill_item += '<span class="billMenuName">' + entry.name + '</span>';
+          bill_item += '<span class="billMenuQuantity">' + entry.count + '</span><span class="Dollar">$&nbsp;</span>';
+          bill_item += '<span class="billMenuPrice">' + entry.price + '</span><div id="toppingList" class="toppingItems">';
+
+          $.each(entry.detail, function(entryIndex, entry) {
+            if (entry.name.substring(0, 1) == '*') {
+              detail_item = '';
+            } else {
+              detail_item += '<div class="toppingItemEach"><span class="billToppingName">-&nbsp;' + entry.name + '</span>';
+              detail_item += '<span class="billToppingQuantity">' + entry.count + '</span>';
+              detail_item += '<span class="toppingDollar">$</span><span class="billToppingPrice">' + entry.price + '</span></div>';
+            }
+          });
+          bill_item += detail_item;
+          bill_item += '</div></div>';
+        });
+        $('#billList').append(bill_item);
+        $(".billMenuItems").each(function() {
+          billTmpQtyAmount += parseFloat($(this).children(".billMenuQuantity").text());
+          billTmpAmount += billTmpQtyAmount * parseFloat($(this).children(".billMenuPrice").text());
+          $(this).children(".billMenuPrice").text(billTmpAmount);
+          billAmount += billTmpAmount;
+          billQtyAmount += billTmpQtyAmount;
+          billTmpQtyAmount = 0;
+          billTmpAmount = 0;
+
+        });
+
+        $('.toppingItemEach').each(function() {
+          billTmpAmount += parseFloat($(this).children(".billToppingPrice").text()) * parseFloat($(this).children(".billToppingQuantity").text());
+          $(this).children(".billToppingPrice").text(parseFloat(billTmpAmount).toFixed(2));
+          billAmount += billTmpAmount;
+          billTmpAmount = 0;
+        });
+
+        $('.billTotalQuantity').text(billQtyAmount);
+        $('.billTotalPrice').text(billAmount);
+        $('.billTotalTax').text(parseFloat(billAmount * 0.09).toFixed(2));
+        $('.billCheckTotal').text(parseFloat(billAmount * 1.09).toFixed(2));
+        $('.billTotalTip8').text(parseFloat(billAmount * 1.09 * 0.08).toFixed(2));
+        $('.billTotalTip10').text(parseFloat(billAmount * 1.09 * 0.10).toFixed(2));
+        $('.billTotalTip15').text(parseFloat(billAmount * 1.09 * 0.15).toFixed(2));
+      });
+
+      $('.langBtn').on('click', function() {
+        $(this).children('ul').stop().slideToggle(400);
+      })
+    });
+  </script>
+
+  </html>
